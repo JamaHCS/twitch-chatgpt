@@ -7,7 +7,7 @@ const readFile = promisify(fs.readFile);
 const GPT_MODE = process.env.GPT_MODE;
 const { Configuration, OpenAIApi } = require('openai');
 
-const contextElement = {
+let contextElement = {
   role: 'system',
   content: 'You are a helpful Twitch Chatbot.',
 };
