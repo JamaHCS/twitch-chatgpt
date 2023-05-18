@@ -36,7 +36,7 @@ console.log('OpenAI API Key:' + process.env.OPENAI_API_KEY);
       content: data,
     };
   } catch (err) {
-    throw new Error('Error reading context file:', err);
+    throw new Error(`Error reading context file: ${err}`);
   }
 })().catch(e => {
   console.error(e);
