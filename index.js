@@ -26,7 +26,7 @@ console.log('History length is ' + process.env.HISTORY_LENGTH);
 console.log('OpenAI API Key:' + process.env.OPENAI_API_KEY);
 
 try {
-  const data = await readFile('./file_context.txt', 'utf8');
+  const data = readFile('./file_context.txt', 'utf8');
   console.log(
     'Reading context file and adding it as system level message for the agent.'
   );
