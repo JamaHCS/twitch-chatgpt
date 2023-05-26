@@ -7,7 +7,7 @@ const readFile = promisify(fs.readFile);
 const GPT_MODE = process.env.GPT_MODE;
 const { Configuration, OpenAIApi } = require('openai');
 
-let contextElement = {
+const contextElement = {
   role: 'system',
   content: 'You are a helpful Twitch Chatbot.',
 };
@@ -25,25 +25,19 @@ console.log('GPT_MODE is ' + GPT_MODE);
 console.log('History length is ' + process.env.HISTORY_LENGTH);
 console.log('OpenAI API Key:' + process.env.OPENAI_API_KEY);
 
-
-(async function() {
-  try {
-    const data = await readFile('./file_context.txt', 'utf8');
-    console.log('Reading context file and adding it as system level message for the agent.');
-    messages[0].content = data;
-    contextElement = {
-      role: 'system',
-      content: data,
-    };
-  } catch (err) {
-    throw new Error(`Error reading context file: ${err}`);
-  }
-})().catch(e => {
-  console.error(e);
-  process.exit(1);
-});
-
-
+try {
+  const data = await readFile('./file_context.txt', 'utf8');
+  console.log(
+    'Reading context file and adding it as system level message for the agent.'
+  );
+  messages[0].content = data;
+  contextElement = {
+    role: 'system',
+    content: data,
+  };
+} catch (err) {
+  throw new Error('Error reading context file:', err);
+}
 
 app
   .use(express.json({ extended: true, limit: '1mb' }))
